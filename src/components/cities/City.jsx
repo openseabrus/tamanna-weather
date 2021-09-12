@@ -4,7 +4,7 @@ import { Weather } from '../weather/Weather';
 import { useDispatch } from 'react-redux';
 import { cityActions } from '../../redux/cities';
 
-export const City = ({ city, isRemovable = true }) => {
+export const City = ({ city, weather, isRemovable = true }) => {
 	const { name, id } = city;
 	const dispatch = useDispatch();
 
@@ -12,10 +12,12 @@ export const City = ({ city, isRemovable = true }) => {
 		dispatch(cityActions.removeCity(id));
 	};
 
+	const { current, daily = [] } = weather || {};
+
 	return (
 		<>
 			<div className="cities__title">
-				<h3>Weather in {name}</h3>
+				{name && <h3>Weather in {name}</h3>}
 				{isRemovable && (
 					<button onClick={deleteCityHandler} type="button">
 						Delete City
@@ -23,13 +25,10 @@ export const City = ({ city, isRemovable = true }) => {
 				)}
 			</div>
 			<article className="cities__card">
-				<Weather />
-				<Weather />
-				<Weather />
-				<Weather />
-				<Weather />
-				<Weather />
-				<Weather />
+				<Weather current={current} />
+				{daily.map((dailyForecast) => (
+					<Weather forecast={dailyForecast} key={dailyForecast.dt} />
+				))}
 			</article>
 		</>
 	);
@@ -37,5 +36,6 @@ export const City = ({ city, isRemovable = true }) => {
 
 City.propTypes = {
 	city: PropTypes.object,
+	weather: PropTypes.object,
 	isRemovable: PropTypes.bool,
 };

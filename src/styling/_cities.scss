@@ -29,8 +29,13 @@
 	}
 
 	&__weather {
-		padding: 30px;
+		padding: 5px 30px;
 		border: 2px solid pink;
+		width: 260px;
+
+		&__title {
+			text-align: center;
+		}
 	}
 
 	&__card {
