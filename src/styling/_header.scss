@@ -1,0 +1,15 @@
+.header {
+	display: flex;
+	padding: 30px;
+	border-bottom: 2px solid darkgray;
+
+	&__logo {
+		margin-right: 30px;
+	}
+
+	&__navigation {
+		width: 100%;
+		display: flex;
+		justify-content: center;
+	}
+}

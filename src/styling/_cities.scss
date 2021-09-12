@@ -1,0 +1,12 @@
+.cities {
+  display: flex;
+  align-items: stretch;
+  gap: 20px;
+  width: 80%;
+  margin: 30px auto;
+
+  &__weather {
+    padding: 30px;
+    border: 2px solid pink
+  }
+}
