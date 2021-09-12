@@ -5,14 +5,16 @@ import { CitiesHeader } from './CitiesHeader';
 import { citySelectors } from '../../redux/cities';
 
 export const Cities = () => {
-	const cities = useSelector(citySelectors.getCities);
-	console.info(cities);
+	const { cityList = [] } = useSelector(citySelectors.getCities);
 
 	return (
-		<section className="cities">
-			<CitiesHeader title="Saved Cities" />
-			<City cityName="Valencia" />
-			<City cityName="Rome" />
-		</section>
+		<>
+			<section className="cities">
+				<CitiesHeader title="Saved Cities" />
+				{cityList.map((city) => (
+					<City city={city} key={city.name} />
+				))}
+			</section>
+		</>
 	);
 };

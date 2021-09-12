@@ -1,7 +1,11 @@
 const ADD_CITY = 'ADD_CITY';
+const SAVE_CITY = 'SAVE_CITY';
+const ADD_CITY_CLOSE = 'ADD_CITY_CLOSE';
 const REMOVE_CITY = 'REMOVE_CITY';
 
 export default {
 	ADD_CITY,
+	SAVE_CITY,
+	ADD_CITY_CLOSE,
 	REMOVE_CITY,
 };
