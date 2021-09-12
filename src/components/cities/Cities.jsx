@@ -2,6 +2,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { City } from './City';
 import { CitiesHeader } from './CitiesHeader';
+import { CurrentLocation } from './CurrentLocation';
 import { citySelectors } from '../../redux/cities';
 
 export const Cities = () => {
@@ -9,6 +10,7 @@ export const Cities = () => {
 
 	return (
 		<>
+			<CurrentLocation />
 			<section className="cities">
 				<CitiesHeader title="Saved Cities" />
 				{cityList.map((city) => (

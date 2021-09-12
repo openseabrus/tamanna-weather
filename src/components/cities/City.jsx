@@ -4,7 +4,7 @@ import { Weather } from '../weather/Weather';
 import { useDispatch } from 'react-redux';
 import { cityActions } from '../../redux/cities';
 
-export const City = ({ city }) => {
+export const City = ({ city, isRemovable = true }) => {
 	const { name, id } = city;
 	const dispatch = useDispatch();
 
@@ -16,9 +16,11 @@ export const City = ({ city }) => {
 		<>
 			<div className="cities__title">
 				<h3>Weather in {name}</h3>
-				<button onClick={deleteCityHandler} type="button">
-					Delete City
-				</button>
+				{isRemovable && (
+					<button onClick={deleteCityHandler} type="button">
+						Delete City
+					</button>
+				)}
 			</div>
 			<article className="cities__card">
 				<Weather />
@@ -35,4 +37,5 @@ export const City = ({ city }) => {
 
 City.propTypes = {
 	city: PropTypes.object,
+	isRemovable: PropTypes.bool,
 };
