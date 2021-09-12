@@ -1,12 +1,40 @@
 .cities {
-  display: flex;
-  align-items: stretch;
-  gap: 20px;
-  width: 80%;
-  margin: 30px auto;
+	display: flex;
+	flex-direction: column;
+	align-items: stretch;
+	width: 80%;
+	margin: 30px auto;
 
-  &__weather {
-    padding: 30px;
-    border: 2px solid pink
-  }
+	&__main-title {
+		display: grid;
+		grid-template-areas: '. text add';
+		grid-template-columns: repeat(3, 1fr);
+
+		&__text {
+			grid-area: text;
+			justify-self: center;
+		}
+
+		&__add {
+			grid-area: add;
+			justify-self: end;
+		}
+	}
+
+	&__title {
+		margin-top: 20px;
+		margin-bottom: 5px;
+	}
+
+	&__weather {
+		padding: 30px;
+		border: 2px solid pink;
+	}
+
+	&__card {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 20px;
+		margin-bottom: 40px;
+	}
 }
