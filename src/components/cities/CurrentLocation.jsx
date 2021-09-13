@@ -22,16 +22,25 @@ export const CurrentLocation = () => {
 					weatherActions.fetchWeatherByCoordinatesBegin(latitude, longitude)
 				);
 			},
-			(error) => {
-				console.error('Error Code = ' + error.code + ' - ' + error.message);
-				setCurrentLocation({ latitude: 38.7259284, longitude: -9.137382 });
+			() => {
+				setCurrentLocation({
+					latitude: 38.7259284,
+					longitude: -9.137382,
+					name: 'Lisbon (Current Location N/A)',
+				});
+				dispatch(
+					weatherActions.fetchWeatherByCoordinatesBegin(38.7259284, -9.137382)
+				);
 			}
 		);
 	}, []);
 
 	return (
 		<section className="cities">
-			<CitiesHeader title="Current Location" hideAddButton={true} />
+			<CitiesHeader
+				title={currentLocation.name || 'Current Location'}
+				hideAddButton={true}
+			/>
 			<City
 				city={{ id: 0 }}
 				weather={currentLocationWeather}

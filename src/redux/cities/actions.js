@@ -1,15 +1,21 @@
+import { Geolocation } from '../../api';
 import types from './types';
 
 const addCity = () => ({
-	type: types.ADD_CITY,
+	type: types.OPEN_ADD_CITY,
+});
+
+const addCityError = (error) => ({
+	type: types.ADD_CITY_ERROR,
+	payload: error,
 });
 
 const addCityClose = () => ({
 	type: types.ADD_CITY_CLOSE,
 });
 
-const saveCity = (city) => ({
-	type: types.SAVE_CITY,
+const addCitySuccess = (city) => ({
+	type: types.ADD_CITY_SUCCESS,
 	payload: city,
 });
 
@@ -18,9 +24,26 @@ const removeCity = (id) => ({
 	payload: id,
 });
 
+const addCityBegin = (city, country) => {
+	return (dispatch) => {
+		dispatch({
+			type: types.ADD_CITY_BEGIN,
+			payload: city,
+		});
+
+		Geolocation.GetCoordinates(city, country)
+			.execute()
+			.then(({ data }) => {
+				dispatch(addCitySuccess(data));
+			})
+			.catch((error) => dispatch(addCityError({ city, error })));
+	};
+};
+
 export default {
 	addCity,
 	addCityClose,
-	saveCity,
+	addCitySuccess,
 	removeCity,
+	addCityBegin,
 };

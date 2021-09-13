@@ -1,4 +1,4 @@
-import { Weather } from '../../api/Weather';
+import { Weather } from '../../api';
 import types from './types';
 
 const fetchWeatherByCoordinatesBegin = (latitude, longitude) => {

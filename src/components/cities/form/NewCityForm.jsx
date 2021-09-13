@@ -3,7 +3,6 @@ import Modal from 'react-modal';
 import { useDispatch, useSelector } from 'react-redux';
 import { citySelectors } from '../../../redux/cities';
 import { cityActions } from '../../../redux/cities';
-import uuidv4 from '../../../utils/uuid';
 
 export const NewCityForm = () => {
 	const modalStyles = {
@@ -34,7 +33,7 @@ export const NewCityForm = () => {
 		e.preventDefault();
 
 		if (cityName) {
-			dispatch(cityActions.saveCity({ name: cityName, id: uuidv4() }));
+			dispatch(cityActions.addCityBegin(cityName));
 			setCityName('');
 		}
 	};
