@@ -4,15 +4,39 @@
 	gap: 20px;
 	width: 300px;
 
-	&__input {
+	&__field {
 		display: grid;
 		grid-template-columns: 2fr 5fr;
 		grid-column-gap: 10px;
+	}
+
+	&__input {
+		height: 32px;
+
+		&--bordered {
+			border: 1px solid lightgray;
+			font-size: 16px;
+			padding-left: 10px;
+		}
+	}
+
+	&__label {
+		margin: auto 0;
 	}
 
 	&__error {
 		color: red;
 		margin: auto;
 		font-size: 12px;
+	}
+
+	&__submit {
+		margin: 30px auto auto auto;
+	}
+
+	&__title {
+		text-align: center;
+		text-align-last: center;
+		margin: 5px auto 30px auto;
 	}
 }

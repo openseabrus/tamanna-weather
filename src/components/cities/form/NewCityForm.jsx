@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import Modal from 'react-modal';
+import Select from 'react-select';
 import { useDispatch, useSelector } from 'react-redux';
 import { citySelectors } from '../../../redux/cities';
 import { cityActions } from '../../../redux/cities';
+import { countryOptions } from '../../../constants/countries';
 
 export const NewCityForm = () => {
 	const modalStyles = {
@@ -13,6 +15,7 @@ export const NewCityForm = () => {
 			bottom: 'auto',
 			marginRight: '-50%',
 			transform: 'translate(-50%, -50%)',
+			overflow: 'visible',
 		},
 	};
 
@@ -20,6 +23,7 @@ export const NewCityForm = () => {
 	const { isAddCityOpen, error } = useSelector(citySelectors.getCities);
 
 	const [cityName, setCityName] = useState('');
+	const [country, setCountry] = useState('');
 
 	useEffect(() => {
 		if (!isAddCityOpen) {
@@ -31,6 +35,10 @@ export const NewCityForm = () => {
 		setCityName(e.target.value);
 	};
 
+	const onCountryChange = ({ value }) => {
+		setCountry(value);
+	};
+
 	const handleCloseModal = () => {
 		dispatch(cityActions.addCityClose());
 	};
@@ -39,7 +47,7 @@ export const NewCityForm = () => {
 		e.preventDefault();
 
 		if (cityName) {
-			dispatch(cityActions.addCityBegin(cityName));
+			dispatch(cityActions.addCityBegin(cityName, country));
 		}
 	};
 
@@ -52,10 +60,14 @@ export const NewCityForm = () => {
 				style={modalStyles}
 				ariaHideApp={false}
 			>
+				<h3 className="new-city-form__title">Add a new City</h3>
 				<form className="new-city-form" onSubmit={handleFormSubmit}>
-					<div className="new-city-form__input">
-						<label htmlFor="city">City Name</label>
+					<div className="new-city-form__field">
+						<label className="new-city-form__label" htmlFor="city">
+							City Name
+						</label>
 						<input
+							className="new-city-form__input new-city-form__input--bordered"
 							id="username"
 							type="text"
 							name="city"
@@ -63,12 +75,23 @@ export const NewCityForm = () => {
 							onChange={onCityNameChange}
 						/>
 					</div>
+					<div className="new-city-form__field">
+						<label className="new-city-form__label" htmlFor="country">
+							Country
+						</label>
+						<Select
+							className="new-city-form__input"
+							name="country"
+							options={countryOptions}
+							onChange={onCountryChange}
+						/>
+					</div>
 					{error && (
 						<p className="new-city-form__error">
 							Could not find a city with the given data.
 						</p>
 					)}
-					<button>Submit</button>
+					<button className="new-city-form__submit">Submit</button>
 				</form>
 			</Modal>
 		</>
