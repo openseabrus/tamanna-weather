@@ -37,15 +37,6 @@ export const CurrentLocation = () => {
 				weather={currentLocationWeather}
 				isRemovable={false}
 			/>
-			<button
-				onClick={() =>
-					dispatch(
-						weatherActions.fetchWeatherByCoordinatesBegin(38.7259284, -9.137382)
-					)
-				}
-			>
-				Click me
-			</button>
 		</section>
 	);
 };

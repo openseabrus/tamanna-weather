@@ -25,7 +25,9 @@ export const City = ({ city, weather, isRemovable = true }) => {
 				)}
 			</div>
 			<article className="cities__card">
-				<Weather current={current} />
+				<div className="cities__current-weather">
+					<Weather current={current} />
+				</div>
 				{daily.map((dailyForecast) => (
 					<Weather forecast={dailyForecast} key={dailyForecast.dt} />
 				))}

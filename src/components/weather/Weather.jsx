@@ -8,11 +8,21 @@ export const Weather = ({ current, forecast }) => {
 			return (
 				<div>
 					<h4 className="cities__weather__title">Current Weather</h4>
-					<p>Temperature: {temp} C</p>
-					<p>Feels Like: {feels_like} C</p>
-					<p>Humidity: {humidity} %</p>
-					<p>UV Index: {uvi}</p>
-					<p>Wind Speed: {wind_speed} km/h</p>
+					<p>
+						<strong>Temperature</strong> {temp} C
+					</p>
+					<p>
+						<strong>Feels Like</strong> {feels_like} C
+					</p>
+					<p>
+						<strong>Humidity</strong> {humidity} %
+					</p>
+					<p>
+						<strong>UV Index</strong> {uvi}
+					</p>
+					<p>
+						<strong>Wind Speed</strong> {wind_speed} km/h
+					</p>
 				</div>
 			);
 		}
@@ -29,12 +39,24 @@ export const Weather = ({ current, forecast }) => {
 			return (
 				<>
 					<h4 className="cities__weather__title">{forecastDate.toDateString()}</h4>
-					<p>Min Temperature: {min} C</p>
-					<p>Max Temperature: {max} C</p>
-					<p>Feels Like: {day} C</p>
-					<p>Humidity: {humidity} %</p>
-					<p>UV Index: {uvi}</p>
-					<p>Wind Speed: {wind_speed} km/h</p>
+					<p>
+						<strong>Min Temperature</strong> {min} C
+					</p>
+					<p>
+						<strong>Max Temperature</strong> {max} C
+					</p>
+					<p>
+						<strong>Feels Like</strong> {day} C
+					</p>
+					<p>
+						<strong>Humidity</strong> {humidity} %
+					</p>
+					<p>
+						<strong>UV Index</strong> {uvi}
+					</p>
+					<p>
+						<strong>Wind Speed</strong> {wind_speed} km/h
+					</p>
 				</>
 			);
 		}
