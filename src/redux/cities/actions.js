@@ -34,7 +34,12 @@ const addCityBegin = (city, country) => {
 		Geolocation.GetCoordinates(city, country)
 			.execute()
 			.then(({ data }) => {
-				dispatch(addCitySuccess(data));
+				console.info(data);
+				if (data && data.length) {
+					dispatch(addCitySuccess(data));
+				} else {
+					dispatch(addCityError('empty data'));
+				}
 			})
 			.catch((error) => dispatch(addCityError({ city, error })));
 	};

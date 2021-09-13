@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Modal from 'react-modal';
 import { useDispatch, useSelector } from 'react-redux';
 import { citySelectors } from '../../../redux/cities';
@@ -17,9 +17,15 @@ export const NewCityForm = () => {
 	};
 
 	const dispatch = useDispatch();
-	const { isAddCityOpen } = useSelector(citySelectors.getCities);
+	const { isAddCityOpen, error } = useSelector(citySelectors.getCities);
 
 	const [cityName, setCityName] = useState('');
+
+	useEffect(() => {
+		if (!isAddCityOpen) {
+			setCityName('');
+		}
+	}, [isAddCityOpen]);
 
 	const onCityNameChange = (e) => {
 		setCityName(e.target.value);
@@ -34,7 +40,6 @@ export const NewCityForm = () => {
 
 		if (cityName) {
 			dispatch(cityActions.addCityBegin(cityName));
-			setCityName('');
 		}
 	};
 
@@ -58,6 +63,11 @@ export const NewCityForm = () => {
 							onChange={onCityNameChange}
 						/>
 					</div>
+					{error && (
+						<p className="new-city-form__error">
+							Could not find a city with the given data.
+						</p>
+					)}
 					<button>Submit</button>
 				</form>
 			</Modal>

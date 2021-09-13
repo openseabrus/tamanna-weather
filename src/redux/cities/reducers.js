@@ -23,7 +23,6 @@ export default function (state = initialState, action) {
 		case types.ADD_CITY_ERROR:
 			return {
 				...state,
-				isAddCityOpen: false,
 				loading: false,
 				error: action.payload,
 			};

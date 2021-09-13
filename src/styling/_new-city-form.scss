@@ -9,4 +9,10 @@
 		grid-template-columns: 2fr 5fr;
 		grid-column-gap: 10px;
 	}
+
+	&__error {
+		color: red;
+		margin: auto;
+		font-size: 12px;
+	}
 }
