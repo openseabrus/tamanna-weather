@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { citySelectors } from '../../../redux/cities';
 import { cityActions } from '../../../redux/cities';
 import { countryOptions } from '../../../constants/countries';
+import { Button } from '../../elements';
 
 export const NewCityForm = () => {
 	const modalStyles = {
@@ -91,7 +92,7 @@ export const NewCityForm = () => {
 							Could not find a city with the given data.
 						</p>
 					)}
-					<button className="new-city-form__submit">Submit</button>
+					<Button className="new-city-form__submit">Submit</Button>
 				</form>
 			</Modal>
 		</>

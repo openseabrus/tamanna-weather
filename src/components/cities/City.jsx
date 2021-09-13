@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { cityActions } from '../../redux/cities';
 import { weatherActions, weatherSelectors } from '../../redux/weather';
 import { getCountryNameByCode } from '../../utils/countries';
+import { Button } from '../elements';
 
 export const City = ({ city, weather, isRemovable = true }) => {
 	const { name, country, id, lat, lon } = city;
@@ -35,9 +36,13 @@ export const City = ({ city, weather, isRemovable = true }) => {
 					</h3>
 				)}
 				{isRemovable && (
-					<button onClick={deleteCityHandler} type="button">
+					<Button
+						className="button--danger"
+						onClick={deleteCityHandler}
+						type="button"
+					>
 						Delete City
-					</button>
+					</Button>
 				)}
 			</div>
 			<article className="cities__card">
