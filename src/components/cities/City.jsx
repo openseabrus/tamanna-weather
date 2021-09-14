@@ -9,7 +9,7 @@ import { Button } from '../elements';
 import { NotificationManager } from 'react-notifications';
 
 export const City = ({ city, weather, isRemovable = true }) => {
-	const { name, country, id, lat, lon } = city;
+	const { name, country, id, lat, lon } = city || {};
 	const dispatch = useDispatch();
 
 	const citiesWeather = useSelector(weatherSelectors.getWeather);
@@ -21,44 +21,47 @@ export const City = ({ city, weather, isRemovable = true }) => {
 	}, [lat, lon, citiesWeather]);
 
 	const deleteCityHandler = () => {
-		NotificationManager.success('Test', 'Helo', 5000, () => alert('ok bro'));
 		dispatch(cityActions.removeCity(id));
+		NotificationManager.success('Removed city');
 	};
 
 	// Fetch conditions from a given object, or from OWM
 	const { current, daily = [] } =
 		weather || citiesWeather[`${lat}|${lon}`] || {};
 
-	return (
-		<>
-			<div className="cities__title">
-				{name && (
-					<h3>
-						Weather in {name}, {getCountryNameByCode(country)}
-					</h3>
-				)}
-				{isRemovable && (
-					<Button
-						className="button--danger"
-						onClick={deleteCityHandler}
-						type="button"
-					>
-						Delete City
-					</Button>
-				)}
-			</div>
-			<article className="cities__card">
-				{current && (
-					<div className="cities__current-weather">
-						<Weather current={current} />
-					</div>
-				)}
-				{daily.map((dailyForecast) => (
-					<Weather forecast={dailyForecast} key={dailyForecast.dt} />
-				))}
-			</article>
-		</>
-	);
+	if (city) {
+		return (
+			<>
+				<div className="cities__title">
+					{name && (
+						<h3>
+							Weather in {name}, {getCountryNameByCode(country)}
+						</h3>
+					)}
+					{isRemovable && (
+						<Button
+							className="button--danger"
+							onClick={deleteCityHandler}
+							type="button"
+						>
+							Delete City
+						</Button>
+					)}
+				</div>
+				<article className="cities__card">
+					{current && (
+						<div className="cities__current-weather">
+							<Weather current={current} />
+						</div>
+					)}
+					{daily.map((dailyForecast) => (
+						<Weather forecast={dailyForecast} key={dailyForecast.dt} />
+					))}
+				</article>
+			</>
+		);
+	}
+	return null;
 };
 
 City.propTypes = {
