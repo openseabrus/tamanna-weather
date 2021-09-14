@@ -26,12 +26,17 @@
 
 	&__error {
 		color: red;
-		margin: auto;
+		margin: 15px auto 0 auto;
 		font-size: 12px;
 	}
 
 	&__submit {
-		margin: 30px auto auto auto;
+		margin: 15px auto auto auto;
+
+		&:disabled {
+			filter: grayscale(100%);
+			cursor: not-allowed;
+		}
 	}
 
 	&__title {

@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Weather } from '../weather/Weather';
+import Loader from '../loader';
 import { useDispatch, useSelector } from 'react-redux';
 import { cityActions } from '../../redux/cities';
 import { weatherActions, weatherSelectors } from '../../redux/weather';
@@ -14,6 +15,13 @@ export const City = ({ city, weather, isRemovable = true }) => {
 
 	const citiesWeather = useSelector(weatherSelectors.getWeather);
 
+	// Fetch conditions from a given object, or from OWM
+	const {
+		current,
+		daily = [],
+		loading,
+	} = weather || citiesWeather[`${lat}|${lon}`] || {};
+
 	useEffect(() => {
 		if (lat && lon && (!citiesWeather || !citiesWeather[`${lat}|${lon}`])) {
 			dispatch(weatherActions.fetchWeatherByCoordinatesBegin(lat, lon));
@@ -25,10 +33,9 @@ export const City = ({ city, weather, isRemovable = true }) => {
 		NotificationManager.success('Removed city');
 	};
 
-	// Fetch conditions from a given object, or from OWM
-	const { current, daily = [] } =
-		weather || citiesWeather[`${lat}|${lon}`] || {};
-
+	if (loading) {
+		return <Loader />;
+	}
 	if (city) {
 		return (
 			<>
