@@ -7,7 +7,7 @@ import { NotificationContainer } from 'react-notifications';
 const App = () => {
 	return (
 		<>
-			<Header />
+			<Header title="Guilherme Seabra" />
 			<Cities />
 			<NewCityForm />
 			<NotificationContainer />
