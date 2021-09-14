@@ -5,18 +5,28 @@ export const Button = ({
 	onClick = () => {},
 	type,
 	className = '',
+	disabled = false,
 	children,
 }) => {
-	return (
-		<button className={`button ${className}`} onClick={onClick} type={type}>
-			{children}
-		</button>
-	);
+	if (children) {
+		return (
+			<button
+				className={`button ${className}`}
+				disabled={disabled}
+				onClick={onClick}
+				type={type}
+			>
+				{children}
+			</button>
+		);
+	}
+	return null;
 };
 
 Button.propTypes = {
 	onClick: PropTypes.func,
 	type: PropTypes.string,
 	className: PropTypes.string,
+	disabled: PropTypes.bool,
 	children: PropTypes.string,
 };

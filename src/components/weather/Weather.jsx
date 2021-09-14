@@ -1,13 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { WeatherHeader } from './WeatherHeader';
 
 export const Weather = ({ current, forecast }) => {
 	const renderCurrentWeather = () => {
 		if (current) {
-			const { temp, feels_like, humidity, uvi, wind_speed } = current;
+			const { temp, feels_like, humidity, uvi, wind_speed, weather } = current;
 			return (
 				<div>
-					<h4 className="cities__weather__title">Current Weather</h4>
+					<WeatherHeader title="Current Weather" weather={weather} />
 					<p>
 						<strong>Temperature</strong> {temp} C
 					</p>
@@ -31,14 +32,15 @@ export const Weather = ({ current, forecast }) => {
 
 	const renderWeatherForecast = () => {
 		if (forecast) {
-			const { temp, feels_like, humidity, uvi, wind_speed, dt } = forecast;
+			const { temp, feels_like, humidity, uvi, wind_speed, dt, weather } =
+				forecast;
 			const { min, max } = temp;
 			const { day } = feels_like;
 
 			const forecastDate = new Date(dt * 1000);
 			return (
 				<>
-					<h4 className="cities__weather__title">{forecastDate.toDateString()}</h4>
+					<WeatherHeader title={forecastDate.toDateString()} weather={weather} />
 					<p>
 						<strong>Min Temperature</strong> {min} C
 					</p>

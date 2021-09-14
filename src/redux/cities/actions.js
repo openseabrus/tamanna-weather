@@ -1,3 +1,4 @@
+import { NotificationManager } from 'react-notifications';
 import { Geolocation } from '../../api';
 import types from './types';
 
@@ -37,8 +38,10 @@ const addCityBegin = (city, country) => {
 				console.info(data);
 				if (data && data.length) {
 					dispatch(addCitySuccess(data));
+					NotificationManager.success('Added city');
 				} else {
 					dispatch(addCityError('empty data'));
+					NotificationManager.error('Failed to add city');
 				}
 			})
 			.catch((error) => dispatch(addCityError({ city, error })));

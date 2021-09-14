@@ -6,6 +6,7 @@ import { cityActions } from '../../redux/cities';
 import { weatherActions, weatherSelectors } from '../../redux/weather';
 import { getCountryNameByCode } from '../../utils/countries';
 import { Button } from '../elements';
+import { NotificationManager } from 'react-notifications';
 
 export const City = ({ city, weather, isRemovable = true }) => {
 	const { name, country, id, lat, lon } = city;
@@ -20,6 +21,7 @@ export const City = ({ city, weather, isRemovable = true }) => {
 	}, [lat, lon, citiesWeather]);
 
 	const deleteCityHandler = () => {
+		NotificationManager.success('Test', 'Helo', 5000, () => alert('ok bro'));
 		dispatch(cityActions.removeCity(id));
 	};
 

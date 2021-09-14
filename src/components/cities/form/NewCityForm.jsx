@@ -92,7 +92,9 @@ export const NewCityForm = () => {
 							Could not find a city with the given data.
 						</p>
 					)}
-					<Button className="new-city-form__submit">Submit</Button>
+					<Button className="new-city-form__submit" disabled={!cityName}>
+						Submit
+					</Button>
 				</form>
 			</Modal>
 		</>
