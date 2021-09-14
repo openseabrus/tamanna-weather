@@ -5,9 +5,13 @@ export const WeatherHeader = ({ weather, title }) => {
 	const [weatherDetails] = weather || [{}];
 	const { main: weatherDescription, icon } = weatherDetails;
 
+	if (!icon && !title) {
+		return null;
+	}
+
 	return (
 		<header className="cities__weather__title">
-			<h4 className="cities__weather__title__text">{title}</h4>
+			{title && <h4 className="cities__weather__title__text">{title}</h4>}
 			{icon && (
 				<img
 					src={`https://openweathermap.org/img/w/${icon}.png`}
