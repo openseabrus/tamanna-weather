@@ -8,6 +8,7 @@
 	&__main-title {
 		display: grid;
 		grid-template-areas: '. text text text add';
+		grid-template-columns: repeat(5, 1fr);
 
 		&__text {
 			grid-area: text;
