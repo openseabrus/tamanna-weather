@@ -22,11 +22,14 @@
 		justify-content: space-evenly;
 		overflow: hidden;
 		grid-area: icons;
+
+		> a {
+			margin: auto 0;
+		}
 	}
 
 	&__icon {
 		width: 30px;
 		object-fit: contain;
-		margin: auto 0;
 	}
 }

@@ -3,12 +3,14 @@ import { City } from './City';
 import { CitiesHeader } from './CitiesHeader';
 import { useDispatch, useSelector } from 'react-redux';
 import { weatherActions, weatherSelectors } from '../../redux/weather';
+import Loader from '../loader';
 
 export const CurrentLocation = () => {
 	const dispatch = useDispatch();
 
 	const weatherData = useSelector(weatherSelectors.getWeather) || {};
 	const [currentLocation, setCurrentLocation] = useState({});
+	const [isWaitingForLocation, setIsWaitingForLocation] = useState(true);
 
 	const currentLocationWeather =
 		weatherData[`${currentLocation.latitude}|${currentLocation.longitude}`];
@@ -21,6 +23,7 @@ export const CurrentLocation = () => {
 				dispatch(
 					weatherActions.fetchWeatherByCoordinatesBegin(latitude, longitude)
 				);
+				setIsWaitingForLocation(false);
 			},
 			() => {
 				setCurrentLocation({
@@ -31,6 +34,7 @@ export const CurrentLocation = () => {
 				dispatch(
 					weatherActions.fetchWeatherByCoordinatesBegin(38.7259284, -9.137382)
 				);
+				setIsWaitingForLocation(false);
 			}
 		);
 	}, []);
@@ -41,11 +45,15 @@ export const CurrentLocation = () => {
 				title={currentLocation.name || 'Current Location'}
 				hideAddButton={true}
 			/>
-			<City
-				city={{ id: 0 }}
-				weather={currentLocationWeather}
-				isRemovable={false}
-			/>
+			{isWaitingForLocation ? (
+				<Loader />
+			) : (
+				<City
+					city={{ id: 0 }}
+					weather={currentLocationWeather}
+					isRemovable={false}
+				/>
+			)}
 		</section>
 	);
 };
