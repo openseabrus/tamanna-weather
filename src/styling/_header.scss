@@ -1,16 +1,32 @@
 .header {
-	display: flex;
+	display: grid;
+	grid-template-areas: 'logo title icons';
+	grid-auto-columns: 1fr 2fr 1fr;
 	padding: 30px;
 	border-bottom: 2px solid darkgray;
 
 	&__logo {
-		margin-right: 30px;
+		margin: auto;
 		object-fit: contain;
+		grid-area: logo;
 	}
 
-	&__navigation {
-		width: 100%;
+	&__title {
+		text-align: center;
+		text-align-last: center;
+		grid-area: title;
+	}
+
+	&__icons {
 		display: flex;
-		justify-content: center;
+		justify-content: space-evenly;
+		overflow: hidden;
+		grid-area: icons;
+	}
+
+	&__icon {
+		width: 30px;
+		object-fit: contain;
+		margin: auto 0;
 	}
 }
