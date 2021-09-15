@@ -4,7 +4,7 @@ WORKDIR /app
 ENV PATH /app/node_modules/.bin:$PATH
 COPY package.json ./
 COPY yarn.lock ./
-RUN rm -rf node_modules && yarn install --silent
+RUN rm -rf node_modules && yarn install
 RUN yarn global add react-scripts@3.4.1 --silent
 COPY . ./
 RUN yarn run build
