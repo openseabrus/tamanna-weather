@@ -1,70 +1,135 @@
-# Getting Started with Create React App
+# Tamanna-Weather
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+[![CircleCI](https://circleci.com/gh/openseabrus/tamanna-weather/tree/main.svg?style=svg&circle-token=92a17c9204882688dfe5f4b8dee8b1ab92777a30)](https://circleci.com/gh/openseabrus/tamanna-weather/tree/main)
 
-## Available Scripts
+Frontend implementation for the Tamanna Weather App challenge
 
-In the project directory, you can run:
+# Table of Contents
 
-### `yarn start`
+- [Tamanna-Weather](#tamanna-weather)
+- [Table of Contents](#table-of-contents)
+- [Features](#features)
+- [Configuration](#configuration)
+- [Building](#building)
+  - [Local](#local)
+  - [Docker](#docker)
+- [Running](#running)
+  - [Local](#local-1)
+  - [Docker](#docker-1)
+- [Testing](#testing)
+- [Deployments](#deployments)
+  - [Public Instance](#public-instance)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+# Features
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+A few of the things you can do with this app:
 
-### `yarn test`
+- Get your current location's weather conditions (or Lisbon's, if you do not give consent to accessing your location)
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- Add your favorite cities to a list (or delete them)
 
-### `yarn build`
+- See the weather conditions for your favorite cities
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+# Configuration
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Please create a .env file so that it contains your OpenWeatherMap API Key. (You can check an example file on .env.example)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+# Building
 
-### `yarn eject`
+As a first step, you should always do a yarn install:
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+```sh
+yarn install
+```
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+If you are running the app on development mode, you may skip the following building step.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+## Local
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+```sh
+yarn run build
+```
 
-## Learn More
+## Docker
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+For Docker, the best and easiest way to build is doing it through docker-compose:
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+```sh
+docker-compose build
+```
 
-### Code Splitting
+Alternatively, if you want to build the docker image yourself:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+> I'll be using **open1904** and **tamanna-weather-app** as an example.
 
-### Analyzing the Bundle Size
+Feel free to change to meet your requirements. (Adjust the docker-compose.yml and/or Dockerfile files if you choose
+to do so)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+```bash
+docker build --build-arg REACT_APP_OPENWEATHERMAP_API_KEY='YOUR_KEY_GOES_HERE' -t open1904/tamanna-weather-app .
+```
 
-### Making a Progressive Web App
+# Running
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+## Local
 
-### Advanced Configuration
+If you just wish to have a running instance for development purposes, run the following command:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+```sh
+yarn start
+```
 
-### Deployment
+It should open a browser tab when the startup is done, pointing to http://localhost:3000
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+If you wish to serve the generated static files from the previous [building step](#building), you may do so through
+"serve" (not part of package.json) or another equivalent alternative:
 
-### `yarn build` fails to minify
+```sh
+serve -s build
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## Docker
+
+For Docker, it's recommended that you run the docker-compose command:
+
+```bash
+docker-compose up
+```
+
+Alternatively, you may run the previously built container like so:
+
+```sh
+docker run -p 80:80 open1904/tamanna-weather-app
+```
+
+# Testing
+
+In order to run the tests included in the project, run the following command:
+
+```bash
+yarn test
+```
+
+# Deployments
+
+Every time there is a commit on this repo, Circle CI comes into action.
+
+First, it tests and builds the code.
+
+If everything is fine, a docker image is pushed to Docker Hub, and also to Heroku.
+
+## Public Instance
+
+You can access a public instance of this project at https://tamanna-weather.herokuapp.com/ which should always have the latest code deployed.
+
+---
+
+At this point you should be able to access my solution to this challenge.
+
+The application is by default available at http://<LOCAL_IP>
+
+If you ran everything on your machine, using the defaults, the application should be available at http://localhost (or http://0.0.0.0).
+
+If you ran it on development mode, you can access it on http://localhost:3000 by default.
+
+Try adding some cities and see how they work!
