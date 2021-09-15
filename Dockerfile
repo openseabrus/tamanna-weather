@@ -4,6 +4,8 @@ WORKDIR /app
 ENV PATH /app/node_modules/.bin:$PATH
 COPY package.json ./
 COPY yarn.lock ./
+ARG REACT_APP_OPENWEATHERMAP_API_KEY
+ENV REACT_APP_OPENWEATHERMAP_API_KEY $REACT_APP_OPENWEATHERMAP_API_KEY
 RUN rm -rf node_modules && yarn install
 RUN yarn global add react-scripts@3.4.1 --silent
 COPY . ./

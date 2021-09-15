@@ -1,0 +1,12 @@
+version: '3.7'
+
+services:
+ react:
+  container_name: react
+  image: open1904/tamanna-weather
+  build:
+   context: .
+   args:
+    REACT_APP_OPENWEATHERMAP_API_KEY: ${REACT_APP_OPENWEATHERMAP_API_KEY}
+  ports:
+   - '8080:80'
