@@ -17,7 +17,7 @@ jobs:
 
    - run:
       name: Login to DockerHub
-      command: docker login -u $DOCKER_USER -p $DOCKER_PASS --password-stdin
+      command: echo "$DOCKER_TOKEN" | docker login -u $DOCKER_USER --password-stdin
 
    # Download and cache dependencies
    - restore_cache:
