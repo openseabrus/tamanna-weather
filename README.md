@@ -36,7 +36,9 @@ Please create a .env file so that it contains your OpenWeatherMap API Key. (You 
 
 # Building
 
-As a first step, you should always do a yarn install:
+First, you need to make sure you have Node and yarn installed.
+
+Then, you should always do a yarn install:
 
 ```sh
 yarn install
