@@ -40,7 +40,8 @@ jobs:
       name: Checking Tests
       command: yarn run test
 
-   - setup_remote_docker
+   - setup_remote_docker:
+      version: 19.03.13
 
    - run:
       name: Build Docker Image
