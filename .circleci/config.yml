@@ -1,14 +1,72 @@
-# This config is equivalent to both the '.circleci/extended/orb-free.yml' and the base '.circleci/config.yml'
-version: 2.1
+version: 2
+jobs:
+ build:
+  docker:
+   # specify the version you desire here
+   - image: cimg/node:15.9.0
 
-orbs:
-  node: circleci/node@4.1
+  working_directory: ~/repo
 
-workflows:
-  sample:
-    jobs:
-      - node/test:
-          version: '15.1'
-          # This is the node version to use for the `cimg/node` tag
-          # Relevant tags can be found on the CircleCI Developer Hub
-          # https://circleci.com/developer/images/image/cimg/node
+  environment:
+   # Customize the JVM maximum heap limit
+   JVM_OPTS: -Xmx3200m
+   TERM: dumb
+
+  steps:
+   - checkout
+
+   - run:
+      name: Login to DockerHub
+      command: docker login -u $DOCKER_USER -p $DOCKER_PASS
+
+   # Download and cache dependencies
+   - restore_cache:
+      keys:
+       - v1-dependencies-{{ checksum "yarn.lock" }}
+       # fallback to using the latest cache if no exact match is found
+       - v1-dependencies-
+
+   - run: yarn install --frozen-lockfile
+
+   - run: yarn run build
+
+   - save_cache:
+      paths:
+       - ~/node_modules
+      key: v1-dependencies-{{ checksum "yarn.lock" }}
+
+   # run tests!
+   - run:
+      name: Checking Tests
+      command: yarn run test
+
+   - setup_remote_docker
+
+   - run:
+      name: Build Docker Image
+      command: docker build -t open1904/$HEROKU_APP-app .
+
+   - run:
+      name: Push Docker Image to DockerHub
+      command: docker push open1904/$HEROKU_APP-app:latest
+
+   - run:
+      name: Setup Heroku
+      command: bash .circleci/setup-heroku.sh
+
+   - run:
+      name: Push to Heroku
+      command: |
+       heroku git:clone -a $HEROKU_APP
+       rm -rf $HEROKU_APP/build
+       cp -R build $HEROKU_APP/build
+       cd $HEROKU_APP
+       git config --global user.email $HEROKU_LOGIN
+       git config --global user.name $HEROKU_LOGIN
+       git add .
+       git commit -m "update frontend"
+       git push heroku master
+
+   - store_artifacts:
+      path: build
+      destination: artifacts
