@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 export const Header = ({ title }) => {
 	return (
 		<nav className="header">
-			<a href="#">
+			<a className="header__logo" href="#">
 				<img
 					className="header__logo"
 					src="/assets/tamanna.png"
