@@ -1,10 +1,5 @@
 import React from 'react';
-import {
-	screen,
-	render,
-	waitForElementToBeRemoved,
-} from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
+import { screen, render } from '@testing-library/react';
 
 import configureStore from 'redux-mock-store';
 import { Provider } from 'react-redux';
@@ -142,14 +137,6 @@ describe('tests City', () => {
 		},
 	};
 	let store;
-
-	test('does not render anything', () => {
-		<Provider store={store}>
-			<City />
-		</Provider>;
-
-		expect(screen.queryByText('Delete City')).not.toBeInTheDocument();
-	});
 
 	test('renders a City', () => {
 		store = mockStore({ ...initialState, weather: mockWeather });

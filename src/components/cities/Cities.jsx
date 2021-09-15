@@ -12,7 +12,9 @@ export const Cities = () => {
 		<>
 			<CurrentLocation />
 			<section className="cities">
-				<CitiesHeader title="Saved Cities" />
+				<CitiesHeader
+					title={cityList.length ? 'Saved Cities' : 'No Saved Cities Yet'}
+				/>
 				{cityList.map((city) => (
 					<City city={city} key={city.name} />
 				))}
