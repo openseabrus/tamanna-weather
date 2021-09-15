@@ -26,6 +26,10 @@ jobs:
        # fallback to using the latest cache if no exact match is found
        - v1-dependencies-
 
+   - run: echo "REACT_APP_OPENWEATHERMAP_API_KEY=$OWM_API_KEY" > .env.production
+
+   - run: echo "REACT_APP_OPENWEATHERMAP_API_KEY=$OWM_API_KEY" > .env
+
    - run: yarn install --frozen-lockfile
 
    - run: yarn run build
